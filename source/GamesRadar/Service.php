@@ -1,0 +1,480 @@
+<?php
+
+namespace GamesRadar;
+
+use SimpleXMLElement;
+use GamesRadar\Requester;
+use GamesRadar\ExceptionFactory;
+use GamesRadar\DataMapperFactory;
+
+class Service
+{
+	/**
+	 * @var Requester
+	 */
+	private $requester;
+
+	/**
+	 * @var string
+	 */
+	private $apiKey;
+
+	/**
+	 * @param Requester $requester
+	 */
+	public function __construct(Requester $requester, $apiKey)
+	{
+		$this->apiKey = $apiKey;
+		$this->requester = $requester;
+	}
+
+	/**
+	 * @param string $resource
+	 * @param array $args
+	 * @return mixed
+	 */
+	private function request($resource, array $args = array())
+	{
+		$args += array(
+			'api_key' => $this->apiKey,
+		);
+		$xml = $this->requester->request($resource, $args);
+		$data = $this->processResponse($xml, $resource);
+		return $data;
+	}
+
+	/**
+	 * @param SimpleXMLElement $xml
+	 * @return SimpleXMLElement
+	 * @throws GamesRadar\Exception\Base
+	 */
+	private function processResponse(SimpleXMLElement $xml)
+	{
+		if ('error' === ($resource = $xml->getName())) {
+			throw ExceptionFactory::createFromXml($xml);
+		}
+
+		$dataMapper = DataMapperFactory::getDataMapper($resource, $resource);
+
+		if (null === $dataMapper) {
+			$data = $xml;
+
+		} else {
+			$data = $dataMapper->fromXml($xml);
+		}
+
+		return $data;
+	}
+
+	/**
+	 * @param array $options
+	 * @return array
+	 */
+	private static function processOptions(array $options)
+	{
+		$args = array();
+
+		if (isset($options['platform'])) {
+			$args['platform'] = $options['platform'];
+		}
+
+		if (isset($options['genre'])) {
+			$args['genre'] = $options['genre'];
+		}
+
+		if (isset($options['gamename'])) {
+			$args['game_name'] = $options['game_name'];
+		}
+
+		if (isset($options['page'])) {
+			$args['page_num'] = $options['page'];
+		}
+
+		if (isset($options['limit'])) {
+			$args['page_size'] = $options['limit'];
+		}
+
+		if (isset($options['sort'])) {
+			$args['sort'] = $options['sort'];
+		}
+
+		if (isset($options['unique'])) {
+			$args['unique_game'] = $options['unique'] ? 'true' : 'false';
+		}
+
+		if (isset($options['content'])) {
+			$args['content'] = $options['content'];
+		}
+
+		return $args;
+	}
+
+	/**
+	 * @param GamesRadar\Entity\Game\Game|string|int $game
+	 * @return string
+	 */
+	private static function getGameId($game)
+	{
+		if ($game instanceof GamesRadar\Entity\Game\Game) {
+			$id = $game->id;
+
+		} else {
+			$id = (string) $game;
+		}
+
+		return $id;
+	}
+
+	/**
+	 * Get games list.
+	 *
+	 * @param array $options
+	 *
+	 * @param string $options['platform']
+	 * @param string $options['genre']
+	 * @param string $options['gamename']
+	 * @param int $options['page']
+	 * @param int $options['limit']
+	 * @param string $options['sort']
+	 * @return SimpleXMLElement
+	 */
+	public function games(array $options = array())
+	{
+		$args = self::processOptions($options);
+		$data = $this->request('games', $args);
+		return $data;
+	}
+
+	/**
+	 * @param Game|string|int $game
+	 * @return SimpleXMLElement
+	 */
+	public function game($game)
+	{
+		$args = array(
+			'id' => self::getGameId($game),
+		);
+		$data = $this->request('games', $args);
+		return $data;
+	}
+
+	/**
+	 * @param string $platform
+	 * @param string $prefix
+	 * @param string $region
+	 * @return SimpleXMLElement
+	 */
+	public function search($platform, $prefix, $region = null)
+	{
+		$resource = 'search/gameName';
+		if ($platform) {
+			$resource .= '/' . $platform;
+		}
+		if ($prefix) {
+			$resource .= '/' . $prefix;
+		}
+
+		$args = array();
+		if ($region) {
+			$args['region'] = $region;
+		}
+
+		$xml = $this->request($region, $args);
+		return $xml;
+	}
+
+	/**
+	 * @return SimpleXMLElement
+	 */
+	public function platforms()
+	{
+		$data = $this->request('platforms');
+		return $data;
+	}
+
+	/**
+	 * @return SimpleXMLElement
+	 */
+	public function genres()
+	{
+		$data = $this->request('genres');
+		return $data;
+	}
+
+	/**
+	 * @return SimpleXMLElement
+	 */
+	public function franchises()
+	{
+		$data = $this->request('franchises');
+		return $data;
+	}
+
+	/**
+	 * @return SimpleXMLElement
+	 */
+	public function developers()
+	{
+		$data = $this->request('developers');
+		return $data;
+	}
+
+	/**
+	 * @return SimpleXMLElement
+	 */
+	public function publishers()
+	{
+		$data = $this->request('publishers');
+		return $data;
+	}
+
+	/**
+	 * @param array $options
+	 * @param string $options['region']
+	 * @param string $options['platform']
+	 * @param string $options['genre']
+	 * @param string $options['gamename']
+	 * @param int $options['page']
+	 * @param int $options['limit]
+	 * @param string $options['sort']
+	 * @return SimpleXMLElement
+	 */
+	public function news(array $options = array())
+	{
+		$args = self::processOptions($options);
+		$data = $this->request('news', $args);
+		return $data;
+	}
+
+	/**
+	 * @param array $options
+	 * @param string $options['region']
+	 * @param string $options['platform']
+	 * @param string $options['genre']
+	 * @param string $options['gamename']
+	 * @param int $options['page']
+	 * @param int $options['limit]
+	 * @param string $options['sort']
+	 * @return SimpleXMLElement
+	 */
+	public function previews(array $options = array())
+	{
+		$args = self::processOptions($options);
+		$data = $this->request('previews', $args);
+		return $data;
+	}
+
+	/**
+	 * @param array $options
+	 * @param array $options
+	 * @param string $options['region']
+	 * @param string $options['platform']
+	 * @param string $options['genre']
+	 * @param string $options['gamename']
+	 * @param int $options['page']
+	 * @param int $options['limit]
+	 * @param string $options['sort']
+	 * @return SimpleXMLElement
+	 */
+	public function reviews(array $options = array())
+	{
+		$args = self::processOptions($options);
+		$data = $this->request('reviews', $args);
+		return $data;
+	}
+
+	/**
+	 * @param array $options
+	 * @param string $options['region']
+	 * @param string $options['platform']
+	 * @param string $options['genre']
+	 * @param string $options['gamename']
+	 * @param int $options['page']
+	 * @param int $options['limit]
+	 * @param string $options['sort']
+	 * @return SimpleXMLElement
+	 */
+	public function features(array $options = array())
+	{
+		$args = self::processOptions($options);
+		$data = $this->request('features', $args);
+		return $data;
+	}
+
+	/**
+	 * @param array $options
+	 * @param string $options['region']
+	 * @param string $options['platform']
+	 * @param string $options['genre']
+	 * @param string $options['gamename']
+	 * @param int $options['page']
+	 * @param int $options['limit]
+	 * @param string $options['sort']
+	 * @return SimpleXMLElement
+	 */
+	public function videos(array $options = array())
+	{
+		$args = self::processOptions($options);
+		$data = $this->request('videos', $args);
+		return $data;
+	}
+
+	/**
+	 * @param array $options
+	 * @param string $options['region']
+	 * @param string $options['platform']
+	 * @param string $options['genre']
+	 * @param string $options['gamename']
+	 * @param bool $options['unique']
+	 * @param int $options['page']
+	 * @param int $options['limit]
+	 * @param string $options['sort']
+	 * @return SimpleXMLElement
+	 */
+	public function screenshots(array $options = array())
+	{
+		$args = self::processOptions($options);
+		$data = $this->request('screenshots', $args);
+		return $data;
+	}
+
+	/**
+	 * @param array $options
+	 * @param string $options['region']
+	 * @param string $options['platform']
+	 * @param string $options['genre']
+	 * @param string $options['gamename']
+	 * @param int $options['page']
+	 * @param int $options['limit]
+	 * @param string $options['sort']
+	 * @return SimpleXMLElement
+	 */
+	public function cheats(array $options = array())
+	{
+		$args = self::processOptions($options);
+		$data = $this->request('cheats', $args);
+		return $data;
+	}
+
+	/**
+	 * @param array $options
+	 * @param string $options['region']
+	 * @param string $options['platform']
+	 * @param string $options['genre']
+	 * @param string $options['gamename']
+	 * @param int $options['page']
+	 * @param int $options['limit]
+	 * @param string $options['sort']
+	 * @return SimpleXMLElement
+	 */
+	public function faqs(array $options = array())
+	{
+		$args = self::processOptions($options);
+		$data = $this->request('guidesandfaqs', $args);
+		return $data;
+	}
+
+	/**
+	 * @param Game $game
+	 * @param array $options
+	 * @return SimpleXMLElement
+	 */
+	public function gameNews($game, array $options = array())
+	{
+		$resource = 'game/news/' . self::getGameId($game);
+		$args = self::processOptions($options);
+		$data = $this->requester->request($resource, $args);
+		return $data;
+	}
+
+	/**
+	 * @param Game $game
+	 * @param array $options
+	 * @return SimpleXMLElement
+	 */
+	public function gamePreviews($game, array $options = array())
+	{
+		$resource = 'game/previews/' . self::getGameId($game);
+		$args = self::processOptions($options);
+		$data = $this->requester->request($resource, $args);
+		return $data;
+	}
+
+	/**
+	 * @param Game $game
+	 * @param array $options
+	 * @return SimpleXMLElement
+	 */
+	public function gameReviews($game, array $options = array())
+	{
+		$resource = 'game/reviews/' . self::getGameId($game);
+		$args = self::processOptions($options);
+		$data = $this->requester->request($resource, $args);
+		return $data;
+	}
+
+	/**
+	 * @param Game $game
+	 * @param array $options
+	 * @return SimpleXMLElement
+	 */
+	public function gameFeatures($game, array $options = array())
+	{
+		$resource = 'game/features/' . self::getGameId($game);
+		$args = self::processOptions($options);
+		$data = $this->requester->request($resource, $args);
+		return $data;
+	}
+
+	/**
+	 * @param Game $game
+	 * @param array $options
+	 * @return SimpleXMLElement
+	 */
+	public function gameVideos($game, array $options = array())
+	{
+		$resource = 'game/videos/' . self::getGameId($game);
+		$args = self::processOptions($options);
+		$data = $this->requester->request($resource, $args);
+		return $data;
+	}
+
+	/**
+	 * @param Game $game
+	 * @param array $options
+	 * @return SimpleXMLElement
+	 */
+	public function gameScreenshots($game, array $options = array())
+	{
+		$resource = 'game/screenshots/' . self::getGameId($game);
+		$args = self::processOptions($options);
+		$data = $this->requester->request($resource, $args);
+		return $data;
+	}
+
+	/**
+	 * @param Game $game
+	 * @param array $options
+	 * @return SimpleXMLElement
+	 */
+	public function gameCheats($game, array $options = array())
+	{
+		$resource = 'game/cheats/' . self::getGameId($game);
+		$args = self::processOptions($options);
+		$data = $this->requester->request($resource, $args);
+		return $data;
+	}
+
+	/**
+	 * @param Game $game
+	 * @param array $options
+	 * @return SimpleXMLElement
+	 */
+	public function gameFaqs($game, array $options = array())
+	{
+		$resource = 'game/guidesandfaqs/' . self::getGameId($game);
+		$args = self::processOptions($options);
+		$data = $this->requester->request($resource, $args);
+		return $data;
+	}
+}
