@@ -7,7 +7,6 @@ if (2 > count($argv)) {
 }
 
 include __DIR__ . '/../target/GamesRadarAPI.phar';
-// include __DIR__ . '/../source/autoloader.php';
 
 $id = $argv[1];
 

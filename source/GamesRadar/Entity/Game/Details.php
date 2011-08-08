@@ -1,71 +1,150 @@
 <?php
+/**
+ * @package GamesRadar\Entity
+ * @subpackage Game
+ */
 
 namespace GamesRadar\Entity\Game;
-
 use GamesRadar\Entity\Game\Game;
 
+/**
+ *
+ */
 class Details extends Game
 {
-	public $name = array();
+	/**
+	 * @var array
+	 */
+	public $name = array(
+		'uk' => '',
+		'us' => '',
+	);
 
+	/**
+	 * @var string
+	 */
 	public $description;
 
+	/**
+	 * @var string
+	 */
 	public $alternativeNames;
 
+	/**
+	 * @var string
+	 */
 	public $platform;
 
-	public $genre = array();
+	/**
+	 * @var string
+	 */
+	public $genre;
 
-	public $franchise = array();
+	/**
+	 * @var string
+	 */
+	public $franchise;
 
+	/**
+	 * @var string
+	 */
 	public $designer;
 
+	/**
+	 * @var array[int]string
+	 */
 	public $developers = array();
 
+	/**
+	 * @var array
+	 */
 	public $publishers = array(
 		'us' => array(),
 		'uk' => array(),
 	);
 
+	/**
+	 * @var array
+	 */
 	public $censorship = array();
 
-	public $expectedReleaseDate = array();
+	/**
+	 * @var array
+	 */
+	public $expectedReleaseDate = array(
+		'uk' => '',
+		'us' => '',
+	);
 
-	public $releateDate = array();
+	/**
+	 * @var array
+	 */
+	public $releaseDate = array(
+		'uk' => null,
+		'us' => null,
+	);
 
+	/**
+	 * @var int
+	 */
 	public $updatedDate;
 
+	/**
+	 * @var array
+	 */
 	public $upc = array();
 
+	/**
+	 * @var string
+	 */
 	public $officialSite = array();
 
-	public $score = array();
+	/**
+	 * @var string
+	 */
+	public $score;
 
+	/**
+	 * @var string
+	 */
 	public $url;
 
+	/**
+	 * @var array
+	 */
 	public $images = array(
 		'thumbnail' => null,
-		'boxart'    => null,
+		'boxart'    => array(
+			'us' => '',
+			'uk' => '',
+		),
 	);
 
+	/**
+	 * @var string
+	 */
 	public $technicalFeatures;
 
+	/**
+	 * @var string
+	 */
 	public $minimalSystemSpecs;
 
+	/**
+	 * @var string
+	 */
 	public $recommendedSystemSpecs;
 
-	public $multiplayerModes = array();
-
-	public $links = array(
-		'cheats'      => null,
-		'guideFaqs'   => null,
-		'news'        => null,
-		'previews'    => null,
-		'features'    => null,
-		'review'      => null,
-		'screenshots' => null,
-		'vieos'       => null,
-		'downloads'   => null,
-		'rss'         => null,
+	/**
+	 * @var array
+	 */
+	public $multiplayerModes = array(
+		'online'  => array(),
+		'offline' => array(),
 	);
+
+	/**
+	 * @var array
+	 */
+	public $links = array();
 }

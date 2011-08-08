@@ -1,16 +1,21 @@
 <?php
+/**
+ * @package GamesRadar\DataMapper
+ */
 
 namespace GamesRadar\DataMapper;
-
 use SimpleXMLElement;
 use GamesRadar\DataMapper\AbstractMapper;
 use GamesRadar\Entity\Platform;
 
+/**
+ *
+ */
 class Platforms extends AbstractMapper
 {
 	/**
 	 * @param SimpleXMLElelemt
-	 * @return array {@see Platform}
+	 * @return array {@see GamesRadar\Entity\Platform}
 	 */
 	public function fromXml(SimpleXMLElement $xml)
 	{

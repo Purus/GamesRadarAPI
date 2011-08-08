@@ -20,6 +20,7 @@ $classmap = array(
 	'GamesRadar\Params\Genre'    => 'phar://GamesRadar/Params/Genre.php',
 	'GamesRadar\Params\Platform' => 'phar://GamesRadar/Params/Platform.php',
 	'GamesRadar\Params\Sort'     => 'phar://GamesRadar/Params/Sort.php',
+	'GamesRadar\Params\Region'   => 'phar://GamesRadar/Params/Region.php',
 
 	'GamesRadar\DataMapper\AbstractMapper' => 'phar://GamesRadar/DataMapper/AbstractMapper.php',
 	'GamesRadar\DataMapper\Platforms'      => 'phar://GamesRadar/DataMapper/Platforms.php',

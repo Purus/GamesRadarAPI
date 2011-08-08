@@ -1,11 +1,13 @@
 <?php
+/**
+ * @package GamesRadar
+ */
 
 namespace GamesRadar;
-
 use GamesRadar\ExceptionFactory;
 
 /**
- * Doing RESTful requests to GamesRadar resources
+ * RESTful client to GamesRadar resources
  */
 class Requester
 {

@@ -1,15 +1,24 @@
 <?php
+/**
+ * @package GamesRadar\DataMapper
+ */
 
 namespace GamesRadar\DataMapper;
-
 use SimpleXMLElement;
 use GamesRadar\DataMapper\AbstractMapper;
 use GamesRadar\Entity\Article;
 use GamesRadar\Entity\Platform;
 use GamesRadar\Entity\Game\Article as Game;
 
+/**
+ * Articles data mapper
+ */
 class Articles extends AbstractMapper
 {
+	/**
+	 * @param SimpleXMLElement $xml
+	 * @return array {@link GamesRadar\Entity\Article}
+	 */
 	public function fromXml(SimpleXMLElement $xml)
 	{
 		$data = array();

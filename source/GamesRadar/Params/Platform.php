@@ -1,7 +1,13 @@
 <?php
+/**
+ * @package GamesRadar\Params
+ */
 
 namespace GamesRadar\Params;
 
+/**
+ * Platform request params
+ */
 class Platform
 {
 	const ALL = 'all';

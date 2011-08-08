@@ -1,17 +1,21 @@
 <?php
+/**
+ * @package GamesRadar\DataMapper
+ */
 
 namespace GamesRadar\DataMapper;
-
 use SimpleXMLElement;
-use GamesRadar\Entity\Platform;
 use GamesRadar\DataMapper\AbstractMapper;
 use GamesRadar\Entity\Game\Games as Game;
 
+/**
+ * Games data mapper
+ */
 class Games extends AbstractMapper
 {
 	/**
 	 * @param SimpleXMLElement $xml
-	 * @return array {@link Game}
+	 * @return array {@link GamesRadar\Entity\Game\Games}
 	 */
 	public function fromXml(SimpleXMLElement $xml)
 	{
@@ -42,9 +46,7 @@ class Games extends AbstractMapper
 			$entity->images['boxart']['us'] = (string) $node->images->box_art->us;
 			$entity->images['boxart']['uk'] = (string) $node->images->box_art->uk;
 
-			$entity->platform = new Platform();
-			$entity->platform->id = (int) $node->platform->id;
-			$entity->platform->name = (string) $node->platform->name;
+			$entity->platform = (string) $node->platform->name;
 
 			$data[] = $entity;
 		}

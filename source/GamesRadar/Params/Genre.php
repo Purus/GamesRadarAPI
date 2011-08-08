@@ -1,7 +1,13 @@
 <?php
+/**
+ * @package GamesRadar\Params
+ */
 
 namespace GamesRadar\Params;
 
+/**
+ * Genre request params
+ */
 class Genre
 {
 	const ALL = 'all';

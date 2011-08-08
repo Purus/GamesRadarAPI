@@ -1,12 +1,17 @@
 <?php
+/**
+ * @package GamesRadar
+ */
 
 namespace GamesRadar;
-
 use SimpleXMLElement;
 use GamesRadar\Requester;
 use GamesRadar\ExceptionFactory;
 use GamesRadar\DataMapperFactory;
 
+/**
+ * GamesRadar client
+ */
 class Client
 {
 	/**
@@ -144,7 +149,7 @@ class Client
 	 * @param int $options['page']
 	 * @param int $options['limit']
 	 * @param string $options['sort']
-	 * @return SimpleXMLElement
+	 * @return array {@link GamesRadar\Entity\Game\Games}
 	 */
 	public function games(array $options = array())
 	{
@@ -184,7 +189,7 @@ class Client
 	}
 
 	/**
-	 * @return SimpleXMLElement
+	 * @return array {@link GamesRadar\Entity\Platform}
 	 */
 	public function platforms()
 	{
@@ -193,7 +198,7 @@ class Client
 	}
 
 	/**
-	 * @return SimpleXMLElement
+	 * @return array {@link GamesRadar\Entity\Genre}
 	 */
 	public function genres()
 	{
@@ -202,7 +207,7 @@ class Client
 	}
 
 	/**
-	 * @return SimpleXMLElement
+	 * @return array {@link GamesRadar\Entity\Franchise}
 	 */
 	public function franchises()
 	{
@@ -211,7 +216,7 @@ class Client
 	}
 
 	/**
-	 * @return SimpleXMLElement
+	 * @return array {@link GamesRadar\Entity\Company}
 	 */
 	public function developers()
 	{
@@ -220,7 +225,7 @@ class Client
 	}
 
 	/**
-	 * @return SimpleXMLElement
+	 * @return array {@link GamesRadar\Entity\Company}
 	 */
 	public function publishers()
 	{
@@ -237,7 +242,7 @@ class Client
 	 * @param int $options['page']
 	 * @param int $options['limit]
 	 * @param string $options['sort']
-	 * @return SimpleXMLElement
+	 * @return array {@link GamesRadar\Entity\Article}
 	 */
 	public function news(array $options = array())
 	{
@@ -255,7 +260,7 @@ class Client
 	 * @param int $options['page']
 	 * @param int $options['limit]
 	 * @param string $options['sort']
-	 * @return SimpleXMLElement
+	 * @return array {@link GamesRadar\Entity\Article}
 	 */
 	public function previews(array $options = array())
 	{
@@ -274,7 +279,7 @@ class Client
 	 * @param int $options['page']
 	 * @param int $options['limit]
 	 * @param string $options['sort']
-	 * @return SimpleXMLElement
+	 * @return array {@link GamesRadar\Entity\Article}
 	 */
 	public function reviews(array $options = array())
 	{
@@ -292,7 +297,7 @@ class Client
 	 * @param int $options['page']
 	 * @param int $options['limit]
 	 * @param string $options['sort']
-	 * @return SimpleXMLElement
+	 * @return array {@link GamesRadar\Entity\Article}
 	 */
 	public function features(array $options = array())
 	{
@@ -310,7 +315,7 @@ class Client
 	 * @param int $options['page']
 	 * @param int $options['limit]
 	 * @param string $options['sort']
-	 * @return SimpleXMLElement
+	 * @return array {@link GamesRadar\Entity\Video}
 	 */
 	public function videos(array $options = array())
 	{
@@ -329,7 +334,7 @@ class Client
 	 * @param int $options['page']
 	 * @param int $options['limit]
 	 * @param string $options['sort']
-	 * @return SimpleXMLElement
+	 * @return array {@link GamesRadar\Entity\Screenshot}
 	 */
 	public function screenshots(array $options = array())
 	{
@@ -340,14 +345,14 @@ class Client
 
 	/**
 	 * @param array $options
-	 * @param string $options['region']
-	 * @param string $options['platform']
-	 * @param string $options['genre']
-	 * @param string $options['gamename']
-	 * @param int $options['page']
-	 * @param int $options['limit]
-	 * @param string $options['sort']
-	 * @return SimpleXMLElement
+	 * 	string $options['region']
+	 * 	string $options['platform']
+	 * 	string $options['genre']
+	 * 	string $options['gamename']
+	 * 	int $options['page']
+	 * 	int $options['limit]
+	 * 	string $options['sort']
+	 * @return array
 	 */
 	public function cheats(array $options = array())
 	{
@@ -365,7 +370,7 @@ class Client
 	 * @param int $options['page']
 	 * @param int $options['limit]
 	 * @param string $options['sort']
-	 * @return SimpleXMLElement
+	 * @return array {@link GamesRadar\Entity\Cheat}
 	 */
 	public function faqs(array $options = array())
 	{
@@ -377,7 +382,7 @@ class Client
 	/**
 	 * @param Game $game
 	 * @param array $options
-	 * @return SimpleXMLElement
+	 * @return array {@link GamesRadar\Entity\Article}
 	 */
 	public function gameNews($game, array $options = array())
 	{
@@ -390,7 +395,7 @@ class Client
 	/**
 	 * @param Game $game
 	 * @param array $options
-	 * @return SimpleXMLElement
+	 * @return array {@link GamesRadar\Entity\Article}
 	 */
 	public function gamePreviews($game, array $options = array())
 	{
@@ -403,7 +408,7 @@ class Client
 	/**
 	 * @param Game $game
 	 * @param array $options
-	 * @return SimpleXMLElement
+	 * @return array {@link GamesRadar\Entity\Article}
 	 */
 	public function gameReviews($game, array $options = array())
 	{
@@ -416,7 +421,7 @@ class Client
 	/**
 	 * @param Game $game
 	 * @param array $options
-	 * @return SimpleXMLElement
+	 * @return array {@link GamesRadar\Entity\Article}
 	 */
 	public function gameFeatures($game, array $options = array())
 	{
@@ -429,7 +434,7 @@ class Client
 	/**
 	 * @param Game $game
 	 * @param array $options
-	 * @return SimpleXMLElement
+	 * @return array {@link GamesRadar\Entity\Video}
 	 */
 	public function gameVideos($game, array $options = array())
 	{
@@ -442,7 +447,7 @@ class Client
 	/**
 	 * @param Game $game
 	 * @param array $options
-	 * @return SimpleXMLElement
+	 * @return array {@link GamesRadar\Entity\Screenshot}
 	 */
 	public function gameScreenshots($game, array $options = array())
 	{
@@ -455,7 +460,7 @@ class Client
 	/**
 	 * @param Game $game
 	 * @param array $options
-	 * @return SimpleXMLElement
+	 * @return array {@link GamesRadar\Entity\Cheat}
 	 */
 	public function gameCheats($game, array $options = array())
 	{
@@ -468,7 +473,7 @@ class Client
 	/**
 	 * @param Game $game
 	 * @param array $options
-	 * @return SimpleXMLElement
+	 * @return array {@link GamesRadar\Entity\Cheat}
 	 */
 	public function gameFaqs($game, array $options = array())
 	{

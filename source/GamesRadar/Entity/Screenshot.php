@@ -1,9 +1,14 @@
 <?php
+/**
+* @package GamesRadar\Entity
+*/
 
 namespace GamesRadar\Entity;
-
 use GamesRadar\Entity\GameMedia;
 
+/**
+ *
+ */
 class Screenshot
 {
 	/**

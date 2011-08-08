@@ -4,7 +4,7 @@ namespace GamesRadar;
 
 $classmap = array(
 	'GamesRadar\Requester'         => 'GamesRadar/Requester.php',
-	'GamesRadar\Service'           => 'GamesRadar/Service.php',
+	'GamesRadar\Client'            => 'GamesRadar/Client.php',
 	'GamesRadar\ExceptionFactory'  => 'GamesRadar/ExceptionFactory.php',
 	'GamesRadar\DataMapperFactory' => 'GamesRadar/DataMapperFactory.php',
 
@@ -16,6 +16,7 @@ $classmap = array(
 	'GamesRadar\Params\Genre'    => 'GamesRadar/Params/Genre.php',
 	'GamesRadar\Params\Platform' => 'GamesRadar/Params/Platform.php',
 	'GamesRadar\Params\Sort'     => 'GamesRadar/Params/Sort.php',
+	'GamesRadar\Params\Region'   => 'GamesRadar/Params/Region.php',
 
 	'GamesRadar\DataMapper\AbstractMapper' => 'GamesRadar/DataMapper/AbstractMapper.php',
 	'GamesRadar\DataMapper\Platforms'      => 'GamesRadar/DataMapper/Platforms.php',
@@ -28,6 +29,8 @@ $classmap = array(
 	'GamesRadar\DataMapper\Screenshots'    => 'GamesRadar/DataMapper/Screenshots.php',
 	'GamesRadar\DataMapper\Cheats'         => 'GamesRadar/DataMapper/Cheats.php',
 	'GamesRadar\DataMapper\Games'          => 'GamesRadar/DataMapper/Games.php',
+	'GamesRadar\DataMapper\Game'           => 'GamesRadar/DataMapper/Game.php',
+	'GamesRadar\DataMapper\Search'         => 'GamesRadar/DataMapper/Search.php',
 
 	'GamesRadar\Entity\Article'    => 'GamesRadar/Entity/Article.php',
 	'GamesRadar\Entity\Platform'   => 'GamesRadar/Entity/Platform.php',
@@ -40,9 +43,11 @@ $classmap = array(
 
 	'GamesRadar\Entity\Game\Article' => 'GamesRadar/Entity/Game/Article.php',
 	'GamesRadar\Entity\Game\Game'    => 'GamesRadar/Entity/Game/Game.php',
-	'GamesRadar\Entity\Game\Games'    => 'GamesRadar/Entity/Game/Games.php',
-	'GamesRadar\Entity\Game\Media'    => 'GamesRadar/Entity/Game/Media.php',
-	'GamesRadar\Entity\Game\Cheat'    => 'GamesRadar/Entity/Game/Cheat.php',
+	'GamesRadar\Entity\Game\Games'   => 'GamesRadar/Entity/Game/Games.php',
+	'GamesRadar\Entity\Game\Media'   => 'GamesRadar/Entity/Game/Media.php',
+	'GamesRadar\Entity\Game\Cheat'   => 'GamesRadar/Entity/Game/Cheat.php',
+	'GamesRadar\Entity\Game\Search'  => 'GamesRadar/Entity/Game/Search.php',
+	'GamesRadar\Entity\Game\Details' => 'GamesRadar/Entity/Game/Details.php',
 );
 
 spl_autoload_register(function($classname) use ($classmap)

@@ -1,8 +1,15 @@
 <?php
+/**
+ * @package GamesRadar\Exception
+ */
 
 namespace GamesRadar\Exception;
+use GamesRadar\Exception\Base;
 
-class Common extends Exception
+/**
+ * Unknown error
+ */
+class Unknown extends Base
 {
 
 }

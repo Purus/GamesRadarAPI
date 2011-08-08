@@ -1,7 +1,15 @@
 <?php
+/**
+ * @package GamesRadar
+ */
 
 namespace GamesRadar;
+use GamesRadar\DataMapper\AbstractMapper;
+use SimpleXMLElement;
 
+/**
+ * Data mapper factory
+ */
 class DataMapperFactory
 {
 	/**
@@ -11,7 +19,7 @@ class DataMapperFactory
 
 	/**
 	 * @param string $name
-	 * @return GamesRadar\DataMapper\AbstractMapper
+	 * @return AbstractMapper
 	 */
 	public static function getDataMapper($name)
 	{
@@ -33,5 +41,16 @@ class DataMapperFactory
 		}
 
 		return $dataMapper;
+	}
+
+	/**
+	 * @param SimpleXMLElement $xml
+	 * @param string $uri
+	 * @return AbstractMapper
+	 */
+	public static function getFromXml(SimpleXMLElement $xml, $uri)
+	{
+		$name = $xml->getName();
+		return self::getDataMapper($name);
 	}
 }

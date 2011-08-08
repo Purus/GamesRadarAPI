@@ -1,66 +1,129 @@
 <?php
+/**
+ * @package GamesRadar\DataMapper
+ */
 
 namespace GamesRadar\DataMapper;
-
+use SimpleXMLElement;
 use GamesRadar\DataMapper\AbstractMapper;
-use GamesRadar\Entity\Game\Details as Game;
-use GamesRadar\Entity\Platform;
-use GamesRadar\Entity\Genre;
-use GamesRadar\Entity\Franchise;
-use GamesRadar\Entity\Company;
+use GamesRadar\Entity\Game\Details as GameDetails;
 
+/**
+ * Game data mapper
+ */
 class Game extends AbstractMapper
 {
 	/**
 	 * @param SimpleXMLElement $xml
-	 * @return Details
+	 * @return GamesRadar\Entity\Game\Details
 	 */
 	public function fromXml(SimpleXMLElement $xml)
 	{
-		$entity = new Game();
+		$entity = new GameDetails;
 
 		$entity->id = (int) $xml->id;
 
-		$entity->name['us'] = (string) $xml->anem->us;
-		$entity->name['uk'] = (string) $xml->anem->uk;
+		$entity->name['us'] = (string) $xml->name->us;
+		$entity->name['uk'] = (string) $xml->name->uk;
 
-		$entity->description = (string) $xml->description;
+		$entity->description      = (string) $xml->description;
 		$entity->alternativeNames = (string) $xml->alternative_names;
 		$entity->designer         = (string) $xml->designer;
+		$entity->platform         = (string) $xml->platform->name;
+		$entity->genre            = (string) $xml->genre->name;
 
-		$entity->platform = new Platform();
-		$entity->platform->id = (int) $xml->platform->id;
-		$entity->platform->name = (string) $xml->platform->name;
-
-		$entity->genre = new Genre();
-		$entity->genre->id = (int) $xml->genre->id;
-		$entity->genre->name = (string) $xml->genre->name;
-
-		$entity->franchise = new Franchise();
-		$entity->franchise->id = (int) $xml->franchise->id;
-		$entity->franchise->name['us'] = (string) $xml->franchise->name->us;
-		$entity->franchise->name['uk'] = (string) $xml->franchise->name->uk;
-
-		$entity->developers = array();
-		foreach ($xml->developers->company as $node) {
-			$company = new Company();
-			$company->id = (int) $company->id;
-			$company->name = (string) $company->name;
-			$entity->developers[] = $company;
+		if ((int) $xml->franchise->id) {
+			$entity->franchise = array(
+				'uk' => (string) $xml->franchise->name->uk,
+				'us' => (string) $xml->franchise->name->us,
+			);
 		}
 
-		foreach ($xml->publishers->us->company as $node) {
-			$company = new Company();
-			$company->id = (int) $company->id;
-			$company->name = (string) $company->name;
-			$entity->publishers['us'] = $company;
+
+		if ($xml->developers->company) {
+			foreach ($xml->developers->company as $node) {
+				$entity->developers[] = (string) $node->name;
+			}
 		}
 
-		foreach ($xml->publishers->uk->company as $node) {
-			$company = new Company();
-			$company->id = (int) $company->id;
-			$company->name = (string) $company->name;
-			$entity->publishers['uk'] = $company;
+		if ($xml->publishers) {
+			if ($xml->publishers->us && $xml->publishers->us->company) {
+				foreach ($xml->publishers->us->company as $node) {
+					$entity->publishers['us'][] = (string) $node->name;
+				}
+			}
+
+			if ($xml->publishers->uk && $xml->publishers->uk->company) {
+				foreach ($xml->publishers->uk->company as $node) {
+					$entity->publishers['uk'][] = (string) $node->name;
+				}
+			}
+		}
+
+		$entity->expectedReleaseDate['us'] = (string) $xml->expected_release_date->us;
+		$entity->expectedReleaseDate['uk'] = (string) $xml->expected_release_date->uk;
+
+		$entity->releaseDate['us'] = strtotime($xml->release_date->us);
+		$entity->releaseDate['uk'] = strtotime($xml->release_date->uk);
+
+		$entity->updatedDate = strtotime($xml->updated_date);
+
+		$entity->upc['us'] = (int) $xml->upc->us;
+		$entity->upc['uk'] = (int) $xml->upc->uk;
+
+		$entity->officialSite['us'] = (string) $xml->official_site->us;
+		$entity->officialSite['uk'] = (string) $xml->official_site->uk;
+
+		if ((int) $xml->score->id) {
+			$entity->score = (string) $xml->score->name;
+		}
+
+		$entity->url = (string) $xml->url;
+
+		$entity->images['thumbnail'] = (string) $xml->images->thumbnail;
+
+		if ($xml->images->box_art && $xml->images->box_art->us) {
+			$entity->images['boxart']['us'] = (string) $xml->images->box_art->us;
+		}
+		if ($xml->images->box_art && $xml->images->box_art->uk) {
+			$entity->images['boxart']['uk'] = (string) $xml->images->box_art->uk;
+		}
+
+		$entity->technicalFeatures = (string) $xml->technical_features;
+		$entity->minimalSystemSpecs = (string) $xml->min_system_specs;
+		$entity->recommendedSystemSpecs = (string) $xml->recommended_system_specs;
+
+		if ($xml->links) {
+			foreach ($xml->links->children() as $node) {
+				/* @var $node SimpleXMLElement */
+				$entity->links[$node->getName()] = (string) $node;
+			}
+		}
+
+		if ($xml->multiplayer_modes->online) {
+			foreach ($xml->multiplayer_modes->online as $node) {
+				$entity->multiplayerModes['online'][] = (string) $node;
+			}
+		}
+
+		if ($xml->multiplayer_modes->offline) {
+			foreach ($xml->multiplayer_modes->offline as $node) {
+				$entity->multiplayerModes['offline'][] = (string) $node;
+			}
+		}
+
+		if ($xml->censorship) {
+			foreach ($xml->censorship->children() as $node) {
+				/* @var $node SimpleXMLElement */
+				$name = $node->getName();
+				$entity->censorship[$name] = array(
+					'rating' => (string) $node->rating,
+					'descriptors' => array(),
+				);
+				foreach ($node->descriptor as $node2) {
+					$entity->censorship[$name]['descriptors'][] = (string) $node2;
+				}
+			}
 		}
 
 		return $entity;

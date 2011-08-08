@@ -1,0 +1,3 @@
+#!/bin/sh
+
+phpdoc -d ../source/GamesRadar -t ../docs/api -q -ti GamesRadarAPI -o HTML:frames:earthli -dn GamesRadar
