@@ -1,0 +1,175 @@
+object(GamesRadar\Entity\Game\Details)#6 (24) {
+  ["name"]=>
+  array(2) {
+    ["us"]=>
+    string(0) ""
+    ["uk"]=>
+    string(0) ""
+  }
+  ["description"]=>
+  string(122) "<p>The mysterious new Halo title is rumored to be a prequel showing how the war between Earth and the Covenant began.</p>
+"
+  ["alternativeNames"]=>
+  string(0) ""
+  ["platform"]=>
+  object(GamesRadar\Entity\Platform)#7 (2) {
+    ["id"]=>
+    int(7)
+    ["name"]=>
+    string(8) "Xbox 360"
+  }
+  ["genre"]=>
+  object(GamesRadar\Entity\Genre)#9 (2) {
+    ["id"]=>
+    int(6)
+    ["name"]=>
+    string(7) "Shooter"
+  }
+  ["franchise"]=>
+  object(GamesRadar\Entity\Franchise)#8 (2) {
+    ["id"]=>
+    int(20060217113847055)
+    ["name"]=>
+    array(2) {
+      ["us"]=>
+      string(4) "Halo"
+      ["uk"]=>
+      string(4) "Halo"
+    }
+  }
+  ["designer"]=>
+  string(0) ""
+  ["developers"]=>
+  array(1) {
+    [0]=>
+    object(GamesRadar\Entity\Company)#13 (2) {
+      ["id"]=>
+      int(0)
+      ["name"]=>
+      string(0) ""
+    }
+  }
+  ["publishers"]=>
+  array(2) {
+    ["us"]=>
+    object(GamesRadar\Entity\Company)#11 (2) {
+      ["id"]=>
+      int(0)
+      ["name"]=>
+      string(0) ""
+    }
+    ["uk"]=>
+    object(GamesRadar\Entity\Company)#12 (2) {
+      ["id"]=>
+      int(0)
+      ["name"]=>
+      string(0) ""
+    }
+  }
+  ["censorship"]=>
+  array(1) {
+    ["esrb"]=>
+    array(2) {
+      ["rating"]=>
+      string(6) "Mature"
+      ["descriptors"]=>
+      array(2) {
+        [0]=>
+        string(5) "Blood"
+        [1]=>
+        string(8) "Violence"
+      }
+    }
+  }
+  ["expectedReleaseDate"]=>
+  array(2) {
+    ["us"]=>
+    string(0) ""
+    ["uk"]=>
+    string(0) ""
+  }
+  ["releaseDate"]=>
+  array(2) {
+    ["us"]=>
+    int(1284422400)
+    ["uk"]=>
+    int(1284422400)
+  }
+  ["updatedDate"]=>
+  int(1284141607)
+  ["upc"]=>
+  array(2) {
+    ["us"]=>
+    int(882224729741)
+    ["uk"]=>
+    int(0)
+  }
+  ["officialSite"]=>
+  array(2) {
+    ["us"]=>
+    string(42) "http://halo.xbox.com/en-us/games/haloreach"
+    ["uk"]=>
+    string(42) "http://halo.xbox.com/en-us/games/haloreach"
+  }
+  ["score"]=>
+  array(2) {
+    ["id"]=>
+    int(8)
+    ["name"]=>
+    string(5) "GREAT"
+  }
+  ["url"]=>
+  string(66) "http://www.gamesradar.com/xbox360/halo-reach/g-2009060110582402047"
+  ["images"]=>
+  array(2) {
+    ["thumbnail"]=>
+    string(145) "http://static.gamesradar.com/images/mb/GamesRadar/us/Games/H/Halo%20Reach/Bulk%20Veiwers/360/2010-06-16/Reach_E310_Campaign03--game_thumbnail.jpg"
+    ["boxart"]=>
+    array(2) {
+      ["us"]=>
+      string(143) "http://static.gamesradar.com/images/mb/GamesRadar/us/Games/H/Halo%20Reach/Everything%20Else/HaloReach_Standard_FOB_wESRB_Final--game_boxart.jpg"
+      ["uk"]=>
+      string(138) "http://static.gamesradar.com/images/mb/GamesRadar/us/Games/H/Halo%20Reach/Everything%20Else/HaloReach_BoxShot_FOB_EN_LIVE--game_boxart.jpg"
+    }
+  }
+  ["technicalFeatures"]=>
+  string(0) ""
+  ["minimalSystemSpecs"]=>
+  string(0) ""
+  ["recommendedSystemSpecs"]=>
+  string(0) ""
+  ["multiplayerModes"]=>
+  array(2) {
+    ["online"]=>
+    array(0) {
+    }
+    ["offline"]=>
+    array(0) {
+    }
+  }
+  ["links"]=>
+  array(10) {
+    ["cheats"]=>
+    string(60) "/xbox360/halo-reach/cheats-guides-faqs/g-2009060110582402047"
+    ["faqs"]=>
+    string(0) ""
+    ["news"]=>
+    string(48) "/xbox360/halo-reach/news/b/g-2009060110582402047"
+    ["previews"]=>
+    string(50) "/xbox360/halo-reach/previews/g-2009060110582402047"
+    ["features"]=>
+    string(50) "/xbox360/halo-reach/features/g-2009060110582402047"
+    ["review"]=>
+    string(0) ""
+    ["screenshots"]=>
+    string(53) "/xbox360/halo-reach/screenshots/g-2009060110582402047"
+    ["videos"]=>
+    string(48) "/xbox360/halo-reach/videos/g-2009060110582402047"
+    ["downloads"]=>
+    string(0) ""
+    ["rss"]=>
+    string(70) "http://www.gamesradar.com/xbox360/halo-reach/rss/g-2009060110582402047"
+  }
+  ["id"]=>
+  int(2009060110582402047)
+}
