@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="GamesRadarAPI" basedir="." default="main">
+
+    <property name="build_dir" value="${project.basedir}/build" />
+    <property name="source_dir" value="${project.basedir}/source" />
+    <property name="apidocs_dir" value="${project.basedir}/docs/api" />
+
+    <!-- ============================================  -->
+    <!-- Target: prepare                               -->
+    <!-- ============================================  -->
+    <target name="prepare">
+        <delete dir="${apidocs_dir}" />
+        <delete dir="${build_dir}" />
+        <mkdir dir="${apidocs_dir}" />
+        <mkdir dir="${build_dir}" />
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: build                                 -->
+    <!-- ============================================  -->
+    <target name="build">
+        <pharpackage
+                destfile="${build_dir}/${phing.project.name}.phar"
+                basedir="${source_dir}"
+                stub="${source_dir}/phar_stub.php">
+            <fileset dir="${source_dir}/GamesRadar">
+                <include name="**/**" />
+            </fileset>
+            <metadata>
+                <element name="version" value="1.0" />
+                <element name="authors">
+                    <element name="Andrew Stephanoff">
+                        <element name="e-mail" value="andrew/stephanoff@gmail.com" />
+                    </element>
+                </element>
+            </metadata>
+        </pharpackage>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: api                                   -->
+    <!-- ============================================  -->
+    <target name="api">
+        <phpdoc title="GamesRadar API Documentation"
+                destdir="${apidocs_dir}"
+                sourcecode="false"
+                quiet="true"
+                defaultpackagename="GamesRadar"
+                output="HTML:frames:earthli">
+
+            <fileset dir="${source_dir}/GamesRadar">
+                <include name="**/*.php" />
+            </fileset>
+            <projdocfileset dir=".">
+                <include name="README" />
+                <include name="INSTALL" />
+                <include name="CHANGELOG" />
+            </projdocfileset>
+        </phpdoc>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- (DEFAULT)  Target: main                       --> 
+    <!-- ============================================  -->
+    <target name="main" depends="prepare, api, build">
+        <echo msg="Done." />
+    </target>
+</project>
